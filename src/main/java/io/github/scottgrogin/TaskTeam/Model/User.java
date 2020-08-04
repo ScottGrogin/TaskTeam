@@ -1,5 +1,4 @@
 package io.github.scottgrogin.TaskTeam.Model;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +7,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true)
     private String username;
 
     @OneToMany()
@@ -18,21 +18,21 @@ public class User {
     private Set<Project> commentProjects = new HashSet<>();
     @ManyToMany
     private Set<Project> viewProjects = new HashSet<>();
-    private byte[] salt;
-    private byte[] hash;
+
+    private String hash;
+
+
 
     public User() {
     }
 
-    public User(Long id, String username, Set<User> friends, Set<Project> ownedProjects,
-                Set<Project> commentProjects, Set<Project> viewProjects, byte[] salt, byte[] hash) {
-        this.id = id;
+    public User( String username, Set<User> friends, Set<Project> ownedProjects,
+                Set<Project> commentProjects, Set<Project> viewProjects, String hash) {
         this.username = username;
         this.friends = friends;
         this.ownedProjects = ownedProjects;
         this.commentProjects = commentProjects;
         this.viewProjects = viewProjects;
-        this.salt = salt;
         this.hash = hash;
     }
 
@@ -84,21 +84,17 @@ public class User {
         this.friends = friends;
     }
 
-    public byte[] getSalt() {
-        return salt;
-    }
 
-    public void setSalt(byte[] salt) {
-        this.salt = salt;
-    }
 
-    public byte[] getHash() {
+    public String getHash() {
         return hash;
     }
 
-    public void setHash(byte[] hash) {
+    public void setHash(String hash) {
         this.hash = hash;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

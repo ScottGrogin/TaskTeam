@@ -9,6 +9,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private String description;
     @ManyToMany(mappedBy = "ownedProjects")
     private Set<User> owners = new HashSet<>();
     @ManyToMany(mappedBy = "commentProjects")
@@ -23,8 +24,9 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, Set<User> owners, Set<User> commenters, Set<User> viewers, Set<Task> tasks) {
+    public Project(String name, String description, Set<User> owners, Set<User> commenters, Set<User> viewers, Set<Task> tasks) {
         this.name = name;
+        this.description = description;
         this.owners = owners;
         this.commenters = commenters;
         this.viewers = viewers;
@@ -92,5 +94,13 @@ public class Project {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
