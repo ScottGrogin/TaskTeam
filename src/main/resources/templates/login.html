@@ -1,0 +1,69 @@
+<!Doctype html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        #navPanelToggle {
+         display: none;
+       }
+    </style>
+</head>
+<body class="" data-gr-c-s-loaded="true">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Task Team Login</h1>
+
+    </header>
+
+    <footer id="footer">
+        <section>
+            <p style="color:#800F00;" th:if="${param.error}">
+                Invalid Credentials
+            </p>
+            <form method="post" th:action="@{/login}">
+                <div class="fields">
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" autofocus="autofocus" />
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" />
+                    </div>
+                </div>
+                <ul class="actions">
+                    <li><input type="submit" value="Login"></li>
+                </ul>
+            </form>
+        </section>
+
+    </footer>
+
+    <!-- Copyright -->
+    <div id="copyright">
+        <ul><li>&copy; 2020</li><li>Contact: <p>israelgrogin@gmail.com</p></li></ul>
+    </div>
+</div>
+
+<a href="#navPanel" id="navPanelToggle" style="display:none"></a>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+
+</body>
+</html>

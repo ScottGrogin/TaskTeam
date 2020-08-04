@@ -1,16 +1,15 @@
 package io.github.scottgrogin.TaskTeam.Services;
 
 import io.github.scottgrogin.TaskTeam.Model.User;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
     private User user;
-
     public UserPrincipal(User user) {
         this.user = user;
     }
@@ -21,13 +20,25 @@ public class UserPrincipal implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return user.getHash();
+    public String getPassword() throws AuthenticationCredentialsNotFoundException {
+        String ret;
+        try{
+            ret = user.getHash();
+        }catch(Exception e){
+            throw new  AuthenticationCredentialsNotFoundException(e.getMessage());
+        }
+        return ret;
     }
 
     @Override
-    public String getUsername() {
-        return user.getUsername();
+    public String getUsername()  throws AuthenticationCredentialsNotFoundException {
+        String ret;
+        try{
+            ret = user.getUsername();
+        }catch(Exception e){
+            throw new  AuthenticationCredentialsNotFoundException(e.getMessage());
+        }
+        return ret;
     }
 
     @Override
