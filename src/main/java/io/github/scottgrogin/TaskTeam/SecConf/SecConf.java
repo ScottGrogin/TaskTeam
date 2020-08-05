@@ -29,7 +29,7 @@ public class SecConf extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/login","/assets/**").permitAll()
+                .authorizeRequests().antMatchers("/login","/assets/**","/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

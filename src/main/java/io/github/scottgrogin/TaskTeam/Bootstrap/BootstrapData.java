@@ -24,7 +24,7 @@ public class BootstrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Set<User> owners = new HashSet<>();
         Set<Project> projects = new HashSet<>();
-        User izzy = new User("Izzy",null,null,null,null,"1234");
+        User izzy = new User("Izzy",null,null,null,null,"12345","hjkg@gfdds.com");
         userRepo.save(izzy);
       //  owners.add(izzy);
 
@@ -46,7 +46,8 @@ public class BootstrapData implements CommandLineRunner {
         p2.setOwners(owners);
         projectRepo.save(p1);
         projectRepo.save(p2);
-        User Lindsey = new User("Lindsey",null,null,null,null,"4321");
+        User Lindsey = new User("Lindsey",null,null,null,
+                null,"54321","hjkg@gfds.com");
         userRepo.save(Lindsey);
     }
 }

@@ -1,5 +1,8 @@
 package io.github.scottgrogin.TaskTeam.Model;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
 import java.util.HashSet;
 import java.util.Set;
 @Entity
@@ -7,8 +10,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotNull
+    @NotEmpty
+    @Size(min=3,max=20)
     @Column(unique = true)
     private String username;
+
+    @NotNull
+    @NotEmpty
+    @org.hibernate.validator.constraints.NotBlank
+    @NotBlank
+    @Email
+    @Column(unique = true)
+    private String email;
 
     @OneToMany()
     private Set<User> friends = new HashSet<>();
@@ -18,7 +33,9 @@ public class User {
     private Set<Project> commentProjects = new HashSet<>();
     @ManyToMany
     private Set<Project> viewProjects = new HashSet<>();
-
+    @NotNull
+    @NotEmpty
+    @Size(min=5,max=100)
     private String hash;
 
 
@@ -27,13 +44,14 @@ public class User {
     }
 
     public User( String username, Set<User> friends, Set<Project> ownedProjects,
-                Set<Project> commentProjects, Set<Project> viewProjects, String hash) {
+                Set<Project> commentProjects, Set<Project> viewProjects, String hash,String email) {
         this.username = username;
         this.friends = friends;
         this.ownedProjects = ownedProjects;
         this.commentProjects = commentProjects;
         this.viewProjects = viewProjects;
         this.hash = hash;
+        this.email = email;
     }
 
     public Long getId() {
@@ -109,5 +127,13 @@ public class User {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
