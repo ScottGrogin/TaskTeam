@@ -1,7 +1,12 @@
 package io.github.scottgrogin.TaskTeam.Model;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,15 +16,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @NotEmpty
+
+    @NotBlank
     @Size(min=3,max=20)
     @Column(unique = true)
     private String username;
 
-    @NotNull
-    @NotEmpty
-    @org.hibernate.validator.constraints.NotBlank
+
+
     @NotBlank
     @Email
     @Column(unique = true)
@@ -33,8 +37,7 @@ public class User {
     private Set<Project> commentProjects = new HashSet<>();
     @ManyToMany
     private Set<Project> viewProjects = new HashSet<>();
-    @NotNull
-    @NotEmpty
+    @NotBlank
     @Size(min=5,max=100)
     private String hash;
 
