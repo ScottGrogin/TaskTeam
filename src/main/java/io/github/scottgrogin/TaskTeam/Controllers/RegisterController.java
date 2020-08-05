@@ -1,6 +1,8 @@
 package io.github.scottgrogin.TaskTeam.Controllers;
 
 import io.github.scottgrogin.TaskTeam.Model.User;
+import io.github.scottgrogin.TaskTeam.Repos.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,8 @@ import javax.validation.Valid;
 
 @Controller
 public class RegisterController {
+    @Autowired
+    UserRepo userRepo;
     @GetMapping("/register")
     public String registerPg(User user){
 
@@ -19,12 +23,24 @@ public class RegisterController {
 
     @PostMapping(value = "/register")
     public String registerUser(@Valid User user, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()){
+        boolean err = false;
+        String persistanceErrMsg = "";
+        try {
+            userRepo.save(user);
+        } catch (Exception e){
+            err = true;
+            if(e.getMessage().contains("USERNAME")){
+                persistanceErrMsg = "ERROR: Username taken";
+            } else if (e.getMessage().contains("EMAIL")){
+                persistanceErrMsg="ERROR: Email already registered";
+            }
+
+        }
+        model.addAttribute("permsg",persistanceErrMsg);
+        if(bindingResult.hasErrors()||err){
             model.addAttribute("success",false);
         } else{
             model.addAttribute("success",true);
-            System.out.println(user.getUsername());
-            System.out.println("*********************");
         }
 
         return "register";
