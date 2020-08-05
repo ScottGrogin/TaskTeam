@@ -25,7 +25,6 @@ public class HomeController {
     public String displayProjects(Model model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username=((UserDetails)principal).getUsername();
-
         model.addAttribute("projects",projectRepo.findAllById(projectRepo.findByOwner(userRepo.findIdByOwner(username))));
 
         return "index";

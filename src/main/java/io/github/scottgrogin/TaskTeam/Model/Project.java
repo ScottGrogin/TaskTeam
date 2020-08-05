@@ -1,5 +1,7 @@
 package io.github.scottgrogin.TaskTeam.Model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +10,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank
     private String name;
     private String description;
     @ManyToMany(mappedBy = "ownedProjects")

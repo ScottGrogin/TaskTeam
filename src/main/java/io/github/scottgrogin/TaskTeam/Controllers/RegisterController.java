@@ -1,6 +1,7 @@
 package io.github.scottgrogin.TaskTeam.Controllers;
 
 import io.github.scottgrogin.TaskTeam.Model.User;
+import io.github.scottgrogin.TaskTeam.Repos.ProjectRepo;
 import io.github.scottgrogin.TaskTeam.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,11 @@ import javax.validation.Valid;
 
 @Controller
 public class RegisterController {
-    @Autowired
-    UserRepo userRepo;
+
+    private final UserRepo userRepo;
+    public RegisterController(UserRepo userRepo){
+        this.userRepo = userRepo;
+    }
     @GetMapping("/register")
     public String registerPg(User user){
 
