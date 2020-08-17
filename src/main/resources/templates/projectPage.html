@@ -29,8 +29,7 @@
     </nav>
     <!-- Intro -->
     <div id="intro">
-        <h1>Hello <span sec:authentication="name"></span></h1>
-        <p>Welcome to your Task Team home page. Here you will be able to view the things you are working on and create new projects.</p>
+        <h1>Project Page</h1>
     </div>
 
     <!-- Main -->
@@ -45,11 +44,11 @@
                     <div class="fields">
                         <div class="field">
                             <label for="name">Project Name</label>
-                            <input type="text" id="name" name="name"/>
+                            <input th:placeholder="${name}" type="text" id="name" name="name"/>
                         </div>
                         <div class="field">
                             <label for="description">Description</label>
-                            <textarea id="description" name="description" ></textarea>
+                            <textarea th:placeholder="${description}"  id="description" name="description" ></textarea>
                         </div>
                     </div>
                     <ul class="actions">

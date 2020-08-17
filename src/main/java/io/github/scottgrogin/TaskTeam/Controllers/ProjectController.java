@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -20,33 +19,34 @@ import java.util.Set;
 
 @Controller
 public class ProjectController {
-    private  final UserRepo userRepo;
+    private final UserRepo userRepo;
     private final ProjectRepo projectRepo;
 
-    public ProjectController(UserRepo userRepo,ProjectRepo projectRepo) {
+    public ProjectController(UserRepo userRepo, ProjectRepo projectRepo) {
         this.userRepo = userRepo;
         this.projectRepo = projectRepo;
     }
+
     @GetMapping("/newProject")
-    public String registerPg(Project project){
+    public String registerPg(Project project) {
 
         return "newProject";
     }
 
     @PostMapping(value = "/newProject")
-    public String registerUser(@Valid Project project, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("success",false);
+    public String registerUser(@Valid Project project, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("success", false);
             return "newProject";
 
-        } else{
-            redirectAttributes.addFlashAttribute("success",true);
-            if(project.getDescription() == null ||project.getDescription().isEmpty()){
+        } else {
+            redirectAttributes.addFlashAttribute("success", true);
+            if (project.getDescription() == null || project.getDescription().isEmpty()) {
                 project.setDescription("No description provided, to enter a description visit the project page.");
             }
             Set<User> owners = new HashSet<>();
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String username=((UserDetails)principal).getUsername();
+            String username = ((UserDetails) principal).getUsername();
             User currentUser = userRepo.findByUsername(username);
             owners.add(currentUser);
             project.setOwners(owners);
@@ -55,13 +55,17 @@ public class ProjectController {
             userRepo.save(currentUser);
 
         }
-        redirectAttributes.addAttribute("name",project.getName());
-        redirectAttributes.addAttribute("description",project.getDescription());
+        redirectAttributes.addAttribute("name", project.getName());
+        redirectAttributes.addAttribute("description", project.getDescription());
         return "redirect:/newProject";
     }
-
-    @RequestMapping("/projectPage")
-    public String displayProjectPage(){
-        return "projectPage";
+    @PostMapping("/projectPage")
+    public String dispPojectPate(Project project,Model model){
+        model.addAttribute("id",project.getId());
+        model.addAttribute("name",project.getName());
+        model.addAttribute("description",project.getDescription());
+        return "/projectPage";
     }
+
+
 }

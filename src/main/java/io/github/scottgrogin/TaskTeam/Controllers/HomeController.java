@@ -1,5 +1,6 @@
 package io.github.scottgrogin.TaskTeam.Controllers;
 
+import io.github.scottgrogin.TaskTeam.Model.Project;
 import io.github.scottgrogin.TaskTeam.Model.User;
 import io.github.scottgrogin.TaskTeam.Repos.ProjectRepo;
 import io.github.scottgrogin.TaskTeam.Repos.UserRepo;
@@ -22,7 +23,7 @@ public class HomeController {
         this.projectRepo = projectRepo;
     }
     @RequestMapping({"/","/home"})
-    public String displayProjects(Model model){
+    public String displayProjects(Project project,Model model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username=((UserDetails)principal).getUsername();
         model.addAttribute("projects",projectRepo.findAllById(projectRepo.findByOwner(userRepo.findIdByOwner(username))));

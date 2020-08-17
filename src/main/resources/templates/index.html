@@ -19,8 +19,6 @@
 				<nav id="nav">
 					<ul class="links">
 						<li class="active"><a href="/home">Owned Projects</a></li>
-						<li><a href="/shared">Shared Projects</a></li>
-						<li><a href="/settings">Notifications</a></li>
 						<li><a href="/settings">Settings</a></li>
 					</ul>
 					<ul class="icons">
@@ -53,14 +51,20 @@
 
 						<!-- Posts -->
 							<section class="posts">
-								<article th:each="project:${projects}">
+								<article th:each="proj:${projects}">
+									<form method="post" th:action="@{/projectPage}" th:object="${project}">
 									<header>
-										<h2 th:text="${project.name}"></h2>
+										<h2  th:text="${proj.name}"></h2>
+										<input type="text" id="name" name="name" style="display:none; visibility:hidden;" th:feild="*{name}" th:value="${proj.name}">
+										<input type="text" id="id" name="id" style="display:none; visibility:hidden;" th:feild="*{id}" th:value="${proj.id}">
 									</header>
-									<p th:text="${project.description}"></p>
+									<p th:text="${proj.description}"></p>
+										<input type="text" id="description" name="description" style="display:none; visibility:hidden;" th:feild="*{description}" th:value="${proj.description}">
 									<ul class="actions special">
-										<li><a href="/projectPage" class="button">Project Page</a></li>
+										<li><input type="submit" value="Project Page"></li>
 									</ul>
+
+									</form>
 								</article>
 							</section>
 					</div>
