@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -33,15 +34,16 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/newProject")
-    public String registerUser(@Valid Project project, BindingResult bindingResult, Model model){
+    public String registerUser(@Valid Project project, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
-            model.addAttribute("success",false);
+            redirectAttributes.addFlashAttribute("success",false);
+            return "newProject";
+
         } else{
-            model.addAttribute("success",true);
+            redirectAttributes.addFlashAttribute("success",true);
             if(project.getDescription() == null ||project.getDescription().isEmpty()){
                 project.setDescription("No description provided, to enter a description visit the project page.");
             }
-
             Set<User> owners = new HashSet<>();
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username=((UserDetails)principal).getUsername();
@@ -51,9 +53,15 @@ public class ProjectController {
             projectRepo.save(project);
             currentUser.getOwnedProjects().add(project);
             userRepo.save(currentUser);
-        }
 
-        return "newProject";
+        }
+        redirectAttributes.addAttribute("name",project.getName());
+        redirectAttributes.addAttribute("description",project.getDescription());
+        return "redirect:/newProject";
     }
 
+    @RequestMapping("/projectPage")
+    public String displayProjectPage(){
+        return "projectPage";
+    }
 }

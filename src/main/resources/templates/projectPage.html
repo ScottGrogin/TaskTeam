@@ -1,0 +1,92 @@
+
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Task Team</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper" class="fade-in">
+    <nav id="nav">
+        <ul class="links">
+            <li class="active"><a href="/home">Owned Projects</a></li>
+            <li><a href="/settings">Settings</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="/logout" ><span class="label">Logout</span></a></li>
+
+        </ul>
+    </nav>
+    <!-- Intro -->
+    <div id="intro">
+        <h1>Hello <span sec:authentication="name"></span></h1>
+        <p>Welcome to your Task Team home page. Here you will be able to view the things you are working on and create new projects.</p>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Featured Post -->
+        <article class="post">
+
+            <header >
+
+                <form method="post" >
+                    <div class="fields">
+                        <div class="field">
+                            <label for="name">Project Name</label>
+                            <input type="text" id="name" name="name"/>
+                        </div>
+                        <div class="field">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" ></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Save"></li>
+                    </ul>
+                </form>
+
+            </header>
+        </article>
+
+        <!-- Posts -->
+        <section class="posts">
+            <article >
+                <header>
+                    <h2>Sample proj : pending</h2>
+                </header>
+                <p>tHiS iS aSaMpLe dEsCrIpTiOn</p>
+                <ul class="actions">
+                    <li><a href="#" class="button">Edit Task</a></li>
+                </ul>
+            </article>
+        </section>
+    </div>
+    <!-- Copyright -->
+    <div id="copyright">
+        <ul><li>&copy; 2020</li><li>Contact: <p>israelgrogin@gmail.com</p></li></ul>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
