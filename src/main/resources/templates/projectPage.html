@@ -29,7 +29,7 @@
     </nav>
     <!-- Intro -->
     <div id="intro">
-        <h1>Project Page</h1>
+        <h1>Projects Page</h1>
     </div>
 
     <!-- Main -->
@@ -40,15 +40,18 @@
 
             <header >
 
-                <form method="post" >
+                <form method="post" th:action="@{/projectPage}" th:object="${project}">
                     <div class="fields">
+
                         <div class="field">
+
+                            <input th:feild="*{id}"  th:value="${id}" type="text" id="id" name="id" style="display:none; visibility:hidden;"/>
                             <label for="name">Project Name</label>
-                            <input th:placeholder="${name}" type="text" id="name" name="name"/>
+                            <input th:value = "${name}" th:feild="*{name}" type="text" id="name" name="name"/>
                         </div>
                         <div class="field">
                             <label for="description">Description</label>
-                            <textarea th:placeholder="${description}"  id="description" name="description" ></textarea>
+                            <textarea th:feild="*{description}" id="description" name="description" th:text="${description}" ></textarea>
                         </div>
                     </div>
                     <ul class="actions">

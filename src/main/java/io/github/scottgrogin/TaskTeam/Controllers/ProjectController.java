@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -59,13 +60,16 @@ public class ProjectController {
         redirectAttributes.addAttribute("description", project.getDescription());
         return "redirect:/newProject";
     }
+
+//TODO: input add prompts for when project is not valid and save changes to database.
     @PostMapping("/projectPage")
-    public String dispPojectPate(Project project,Model model){
-        model.addAttribute("id",project.getId());
-        model.addAttribute("name",project.getName());
-        model.addAttribute("description",project.getDescription());
+    public String displayProjectPage(@Valid Project project, Model model) {
+        model.addAttribute("id", project.getId());
+        model.addAttribute("name", project.getName());
+        model.addAttribute("description", project.getDescription());
         return "/projectPage";
     }
+
 
 
 }
