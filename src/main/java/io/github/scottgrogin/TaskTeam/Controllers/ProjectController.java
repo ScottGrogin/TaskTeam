@@ -1,8 +1,10 @@
 package io.github.scottgrogin.TaskTeam.Controllers;
 
 import io.github.scottgrogin.TaskTeam.Model.Project;
+import io.github.scottgrogin.TaskTeam.Model.Task;
 import io.github.scottgrogin.TaskTeam.Model.User;
 import io.github.scottgrogin.TaskTeam.Repos.ProjectRepo;
+import io.github.scottgrogin.TaskTeam.Repos.TaskRepo;
 import io.github.scottgrogin.TaskTeam.Repos.UserRepo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,16 +18,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
 public class ProjectController {
     private final UserRepo userRepo;
     private final ProjectRepo projectRepo;
+    private  final TaskRepo taskRepo;
 
-    public ProjectController(UserRepo userRepo, ProjectRepo projectRepo) {
+    public ProjectController(UserRepo userRepo, ProjectRepo projectRepo, TaskRepo taskRepo) {
         this.userRepo = userRepo;
         this.projectRepo = projectRepo;
+        this.taskRepo = taskRepo;
     }
 
     @GetMapping("/newProject")
@@ -69,6 +75,14 @@ public class ProjectController {
         model.addAttribute("id", project.getId());
         model.addAttribute("name", project.getName());
         model.addAttribute("description", project.getDescription());
+
+        Set<Task> taskSet = new HashSet<>();
+        List<Long> tasks = taskRepo.findByProjId(project.getId());
+        for(Long l: tasks){
+            taskSet.add(taskRepo.findById(l).get());
+            System.out.println(taskRepo.findById(l).get().getTitle());
+        }
+        model.addAttribute("tasks",taskSet);
         return "/projectPage";
     }
 }

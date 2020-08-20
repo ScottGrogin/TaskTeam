@@ -67,11 +67,12 @@
 
         <!-- Posts -->
         <section class="posts">
-            <article >
+            <article th:each="task:${tasks}" >
+
                 <header>
-                    <h2>Sample proj : pending</h2>
+                    <h3 th:text = "${task.title}"></h3>
                 </header>
-                <p>tHiS iS aSaMpLe dEsCrIpTiOn</p>
+                <p style="text-align:left;" th:text = "${task.description}"></p>
                 <ul class="actions">
                     <li><a href="#" class="button">Edit Task</a></li>
                 </ul>

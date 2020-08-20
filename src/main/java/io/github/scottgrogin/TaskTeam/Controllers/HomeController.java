@@ -1,10 +1,8 @@
 package io.github.scottgrogin.TaskTeam.Controllers;
 
 import io.github.scottgrogin.TaskTeam.Model.Project;
-import io.github.scottgrogin.TaskTeam.Model.User;
 import io.github.scottgrogin.TaskTeam.Repos.ProjectRepo;
 import io.github.scottgrogin.TaskTeam.Repos.UserRepo;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
